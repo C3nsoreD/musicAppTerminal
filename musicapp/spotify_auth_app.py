@@ -42,8 +42,8 @@ def callback():
     return 'All set!, you can close the browser window now'
 
 
-def _authorization_code_request(auth_code):
-    config = read_config()
+def _authorization_code_request(config, auth_code):
+    # config = read_config()
     auth_key = get_auth_keys(config.client_id, config.client_secret)
 
     headers = {
@@ -77,3 +77,7 @@ def _authorization_code_request(auth_code):
     
     
     return Authorization(access_token, token_type, expires_in, scope, refresh_token, )
+
+if __name__ == '__main__':
+    app.run(host='localhost', port=3000)
+
