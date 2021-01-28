@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 import requests
 import base64
-import json 
+import json
 import os
 
 from .authorization import Authorization
@@ -11,7 +12,7 @@ from ..core import BadRequestError
 def get_auth_keys(client_id, client_secret):
     byte_keys = bytes(f'{client_id}:{client_secret}', 'utf-8')
     encoded_key = base64.b64encode(byte_keys)
-    return encoded_key.decode('utf-8') 
+    return encoded_key.decode('utf-8')
 
 
 def _authorization_code(conf):
@@ -51,7 +52,7 @@ def _client_credentials(conf):
     if response.status_code == 400:
         error_description = content.get('error_description', '')
         raise BadRequestError(error_description)
-    
+
     access_token = content.get('access_token', None)
     token_type = content.get('token_type', None)
     expires_in = content.get('expires_in', None)
@@ -66,7 +67,7 @@ def _refresh_access_token(auth_key, refresh_token):
     options = {
         'refresh_token': refresh_token,
         'grant_type': 'refresh_token',
-    }    
+    }
 
     response = requests.post(
         'https://accounts.spotify.com/api/token',
@@ -91,5 +92,5 @@ def _refresh_access_token(auth_key, refresh_token):
 def authenticate(conf):
     if conf.auth_method == AuthMethod.CLIENT_CREDENTIALS:
         return _client_credentials(conf)
-    
+
     return _authorization_code(conf)
