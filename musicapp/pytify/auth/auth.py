@@ -16,6 +16,9 @@ def get_auth_keys(client_id, client_secret):
 
 
 def _authorization_code(conf):
+    """
+    Helper method that implements authorization code auth flow.
+    """
     current_dir = os.path.abspath(os.curdir)
     file_path = os.path.join(current_dir, '.pytify')
 
@@ -31,22 +34,22 @@ def _authorization_code(conf):
 
 
 def _client_credentials(conf):
-
+    """
+    Helper method for implementing client credential authentication scheme.
+    """
     auth_key = get_auth_keys(conf.client_id, conf.client_secret)
 
     headers = {'Authorization': f'Basic {auth_key}'}
-
     options = {
         'grant_type': 'client_credentials',
         'json': True,
     }
-
     response = requests.post(
         'https://accounts.spotify.com/api/token',
         headers = headers,
         data = options
     )
-
+    # Load the response after decoding it into the content variable.
     content = json.loads(response.content.decode('utf-8'))
 
     if response.status_code == 400:
@@ -90,6 +93,9 @@ def _refresh_access_token(auth_key, refresh_token):
 
 
 def authenticate(conf):
+    """
+    Decides which authentication method to use depending on the configure passed.
+    """
     if conf.auth_method == AuthMethod.CLIENT_CREDENTIALS:
         return _client_credentials(conf)
 
