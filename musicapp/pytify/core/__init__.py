@@ -9,5 +9,5 @@ from .search import search_track
 from .search import search_artist
 
 from .artists import get_artist_album
-from .album import get_artist_album
+from .album import get_album_tracks
 from .player import play

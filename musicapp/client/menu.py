@@ -30,7 +30,7 @@ class Menu(Panel):
 
         if new_index < 0:
             return
-            
+
         if new_index > index and new_index >= len(self.items):
             return
 
@@ -51,7 +51,7 @@ class Menu(Panel):
                 padding = (len(longest_label_item) - len(item)) * ' '
                 item.label = (f'{item}{padding}' if self._align == Alignment.LEFT else f'{padding}{item}')
             if not self.get_selected():
-                self.itemss[0].selected = True
+                self.items[0].selected = True
 
     def init(self):
         self._initialize_items()
@@ -64,3 +64,18 @@ class Menu(Panel):
         elif key == curses.ENTER or key == curses.NEW_LINE or key == curses.CARRIAGE_RETURN:
             selected_item = self.get_selected()
             return selected_item.action
+
+    def __iter__(self):
+        return iter(self.items)
+
+    def update(self):
+        pos_x = 2
+        pos_y = 2
+        for item in self.items:
+            self._win.addstr(
+                pos_y,
+                pos_x,
+                item.label,
+                curses.A_REVERSE if item.selected else curses.A_NORMAL)
+            pos_y += 1
+        self._win.refresh()
