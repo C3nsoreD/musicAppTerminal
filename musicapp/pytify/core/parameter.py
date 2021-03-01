@@ -19,7 +19,7 @@ def validate_params(params, required):
         raise AttributeError(msg)
 
 
-def perpare_params(params, required=None):
+def prepare_params(params, required=None):
     """ Entry point for params, calls to validate_params to sneure all params are supplied
     """
     if params is None and required is not None:

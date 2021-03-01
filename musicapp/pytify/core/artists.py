@@ -1,4 +1,4 @@
-from .parameter import perpare_params
+from .parameter import prepare_params
 from .request import execute_request
 
 

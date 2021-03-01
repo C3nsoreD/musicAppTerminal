@@ -21,7 +21,7 @@ def execute_request(url_template, auth, params, request_type=RequestType.GET, pa
     headers = {
         'Authorization': f"Bearer {auth.access_token}"
     }
-
+    # breakpoint(headers, conf, auth, url)
     if request_type is RequestType.GET:
         response = requests.get(url, headers=headers)
     else:
@@ -32,7 +32,7 @@ def execute_request(url_template, auth, params, request_type=RequestType.GET, pa
 
     result = json.loads(response.text)
 
-    # handle the error that incase of failure
+    # handle the error incase of failure
     if not response.ok:
         error = result['error']
         raise BadRequestError(

@@ -15,8 +15,10 @@ def _search(criteria, auth, search_type):
 
     # construct the query
     q_type = search_type.name.lower()
-    # f = {conf.base_url: }
-    url = urlencode(f"{conf.base_url}/search?q={criteria}&type={q_type}")
+
+    # url = urlencode(f"{conf.base_url}/search?q={criteria}&type={q_type}")
+    params = {'q': criteria, 'type':q_type}
+    url = f"{conf.base_url}/search?" + urlencode(params)
     headers = {'Authorization': f'Bearer {auth.access_token}'}
     response = requests.get(url, headers=headers)
 

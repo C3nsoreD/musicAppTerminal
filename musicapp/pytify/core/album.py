@@ -1,4 +1,4 @@
-from .parameter import perpare_params
+from .parameter import prepare_params
 from .request import execute_request
 
 
@@ -10,7 +10,7 @@ def get_album_tracks(album_id, auth, params=None):
 
     url_template = '{base_url}/{area}/{albumid}/{postfix}{query}'
     url_params = {
-        'query' : perpare_params(params),
+        'query' : prepare_params(params),
         'area': 'album',
         'albumid': album_id,
         'postfix': 'tracks',

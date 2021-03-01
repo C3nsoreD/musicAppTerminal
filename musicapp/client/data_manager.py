@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from .menu_item import MenuItem
 
 from pytify.core import search_artist
@@ -16,10 +17,10 @@ class DataManager:
         self._auth = authenticate(self._conf)
 
     def search_artist(self, criteria):
-        reults = search_artist(criteria, self._auth)
-        items = results['artists']['item']
+        results = search_artist(criteria, self._auth)
+        items = results['artists']['items']
 
-        if not item:
+        if not items:
             raise EmptyResultsError(
                 f"Could not find artits in {criteria}"
             )
