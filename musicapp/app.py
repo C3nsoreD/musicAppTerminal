@@ -17,7 +17,7 @@ def show_search_screen(stdscr):
     stdscr.addstr(1, 2, "Artist name: (Crtl-G to search)")
 
     editwin = curses.newwin(1, 40, 3, 3)
-    rectangle(editwin, 2, 2, 4, 44)
+    rectangle(stdscr, 2, 2, 4, 44)
     stdscr.refresh()
 
     box = Textbox(editwin)
@@ -50,7 +50,7 @@ def main(stdscr):
     tracks_panel = Menu(
         'List of tracks for the selected album', (height, width, 0, 0)
     )
-    artist = _data_manager.search_artists(criteria)
+    artist = _data_manager.search_artist(criteria)
     albums = _data_manager.get_artist_album(artist['id'])
 
     clean_screen(stdscr)
@@ -73,7 +73,7 @@ def main(stdscr):
             action_result = action()
             if current_panel == albums_panel and action_result is not None:
                 _id, uri = action_result
-                tracks = _data_manager.get_album_tracklist(_id))
+                tracks = _data_manager.get_album_tracklist(_id)
                 current_panel.hide()
                 current_panel = tracks_panel
                 tracks_panel.items = tracks
@@ -86,7 +86,7 @@ def main(stdscr):
         if key == curses.KEY_F2:
             current_panel.hide()
             criteria = show_search_screen(stdscr)
-            artist = _data_manager.search_artists(criteria)
+            artist = _data_manager.search_artist(criteria)
             albums = _data_manager.get_artist_album(artist['id'])
 
             clear_screen(stdscr)
@@ -99,7 +99,9 @@ def main(stdscr):
             is_running = False
 
         current_panel.update()
-    try:
-        wrapper(main)
-    except KeyboardInterrupt:
-        print("Thanks for using the app")
+
+
+try:
+    wrapper(main)
+except KeyboardInterrupt:
+    print("Thanks for using the app")

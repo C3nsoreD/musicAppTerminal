@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 from urllib.parse import urlencode
 
 import requests
-import json 
+import json
 
 from flask import Flask
 from flask import render_template
@@ -26,7 +27,8 @@ def home():
     }
 
     enc_params = urlencode(params)
-    url = f'{config.auth_url}?{enc_params}'
+    url = f"{config.auth_url}?{enc_params}"
+
     return render_template('index.html', link=url)
 
 
@@ -47,7 +49,7 @@ def _authorization_code_request(config, auth_code):
     auth_key = get_auth_keys(config.client_id, config.client_secret)
 
     headers = {
-        'Authorization': f'Basic {auth_key}',
+        'Authorization': f"Basic {auth_key}",
     }
 
     options = {
@@ -68,16 +70,15 @@ def _authorization_code_request(config, auth_code):
     if response.status_code == 400:
         error_description = content.get('error_description', '')
         raise BadRequestError(error_description)
-    
+
     access_token = content.get('access_token', None)
     token_type = content.get('token_type', None)
     expires_in = content.get('expires_in', None)
     scope = content.get('scope', None)
     refresh_token = content.get('refresh_token', None)
-    
-    
+
+
     return Authorization(access_token, token_type, expires_in, scope, refresh_token, )
 
 if __name__ == '__main__':
     app.run(host='localhost', port=3000)
-

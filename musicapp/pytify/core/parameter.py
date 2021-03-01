@@ -15,7 +15,7 @@ def validate_params(params, required):
     not_supplied = [x for x in partial if not partial[x]]
     # if not empty
     if not_supplied:
-        msg = f'The parameters(s) "{', '.join(not_supplied)}" are required'
+        msg = f"The parameters(s) '{', '.join(not_supplied)}' are required"
         raise AttributeError(msg)
 
 
@@ -23,7 +23,7 @@ def perpare_params(params, required=None):
     """ Entry point for params, calls to validate_params to sneure all params are supplied
     """
     if params is None and required is not None:
-        msg = f'The parameters(s) "{', '.join(required)}" are required'
+        msg = f"The parameters(s) '{', '.join(required)}' are required"
         raise AttributeError(msg)
     elif params is None and required is None:
         return ''

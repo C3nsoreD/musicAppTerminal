@@ -1,4 +1,4 @@
-import request
+import requests
 import json
 from urllib.parse import urlencode
 
@@ -7,17 +7,18 @@ from pytify.core import read_config
 
 
 def _search(criteria, auth, search_type):
-     conf = read_config()
+    conf = read_config()
 
      # ensure a criteria has been passed
-     if not criteria:
-         raise AttributeError('Parameter `criteria` is required')
+    if not criteria:
+        raise AttributeError('Parameter `criteria` is required')
 
     # construct the query
     q_type = search_type.name.lower()
-    url = urlencode(f'{conf.base_url}/search?q={criteria}&type={q_type}')
+    # f = {conf.base_url: }
+    url = urlencode(f"{conf.base_url}/search?q={criteria}&type={q_type}")
     headers = {'Authorization': f'Bearer {auth.access_token}'}
-    response = request.get(url, headers=headers)
+    response = requests.get(url, headers=headers)
 
     return json.loads(response.text)
 
