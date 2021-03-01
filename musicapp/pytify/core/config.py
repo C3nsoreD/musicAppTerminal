@@ -13,7 +13,6 @@ Config = namedtuple(
 )
 
 def read_config():
-
     current_dir = os.path.abspath(os.curdir)
     file_path = os.path.join(current_dir, 'config.yaml')
 

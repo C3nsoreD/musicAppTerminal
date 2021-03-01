@@ -30,7 +30,7 @@ def _authorization_code(conf):
             if refresh_token:
                 return _refresh_access_token(auth_key, refresh_token)
     except IOError:
-        raise IOError(('It seems you have not authorized the application yet. the file .pytify was not found'))
+        raise IOError(('It seems you have not authorized the application yet the file .pytify was not found'))
 
 
 def _client_credentials(conf):
@@ -66,18 +66,15 @@ def _client_credentials(conf):
 
 def _refresh_access_token(auth_key, refresh_token):
     headers = {'Authorization': f'Basic {auth_key}', }
-
     options = {
         'refresh_token': refresh_token,
         'grant_type': 'refresh_token',
     }
-
     response = requests.post(
         'https://accounts.spotify.com/api/token',
         headers=headers,
         data=options
     )
-
     content = json.loads(response.content.decode('utf-8'))
 
     if not response.ok:

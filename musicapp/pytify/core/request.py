@@ -26,14 +26,17 @@ def execute_request(url_template, auth, params, request_type=RequestType.GET, pa
         response = requests.get(url, headers=headers)
     else:
         response = requests.put(url, headers=headers, data=json.dumps(payload))
-        # check it there is response 'not empty'
+        # check for a non empty responses
         if not response.text:
             return response.text
 
     result = json.loads(response.text)
 
+    # handle the error that incase of failure
     if not response.ok:
         error = result['error']
         raise BadRequestError(
             f"{error['message']} (HTTP {error['status']})"
         )
+
+    return result
