@@ -1,3 +1,7 @@
+__pycache__/
 musicterminal/
 masterPython/
+
+# File ignores 
 *.yaml
+*.pyc
