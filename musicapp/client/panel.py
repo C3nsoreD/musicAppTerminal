@@ -5,8 +5,8 @@ from uuid import uuid1
 
 
 class Panel:
-    def __init__(self, title, dimensins):
-        height, width, y, x = dimensins
+    def __init__(self, title, dimensions):
+        height, width, y, x = dimensions
         self._win = curses.newwin(height, width, y, x)
         self._win.box()
         self._panel = curses.panel.new_panel(self._win)
